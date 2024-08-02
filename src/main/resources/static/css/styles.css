@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
+    text-align: center;
+    color: #4CAF50;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    cursor: not-allowed;
+    font-size: 16px;
+    border-radius: 4px;
+    margin: 5px;
+}
+
+.btn.disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.btn.green {
+    background-color: green;
+}
+
+.btn.red {
+    background-color: red;
+}
+
+.btn.blue {
+    background-color: blue;
+}
+
+.btn:not(.disabled) {
+    cursor: pointer;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.message {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #4CAF50;
+    background-color: #dff0d8;
+    color: #3c763d;
+    border-radius: 4px;
+    text-align: center;
+}

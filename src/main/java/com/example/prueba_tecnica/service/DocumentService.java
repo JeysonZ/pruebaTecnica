@@ -25,6 +25,14 @@ public class DocumentService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Method for saving the document
+     *
+     * @param fileName the file name.
+     * @param fileType the file type.
+     * @param fileSize the file size.
+     * @return the Document
+     */
     public Document saveDocument(final String fileName, final String fileType, final long fileSize) {
         final Document document = new Document();
         document.setFileName(fileName);
@@ -34,22 +42,32 @@ public class DocumentService {
         return documentRepository.save(document);
     }
 
+    /**
+     * Method to get all saved documents.
+     *
+     * @return a list of documents.
+     */
     public List<Document> getAllDocuments() {
         return documentRepository.findAll();
     }
 
+    /**
+     * Method for processing Excel data.
+     *
+     * @param file the MultipartFile
+     * @throws IOException
+     */
     public void processExcelFile(MultipartFile file) throws IOException {
         try (Workbook workbook = WorkbookFactory.create(file.getInputStream())) {
-            Sheet sheet = workbook.getSheetAt(0); // Obtener la primera hoja
+            Sheet sheet = workbook.getSheetAt(0);
 
-            // Mapear los encabezados de columna
             Map<String, Integer> headerMap = new HashMap<>();
             Row headerRow = sheet.getRow(0);
             for (Cell cell : headerRow) {
                 headerMap.put(cell.getStringCellValue(), cell.getColumnIndex());
             }
             List<User> users = new ArrayList<>();
-            for (int i = 1; i <= sheet.getLastRowNum(); i++) { // Empezar en 1 para omitir la fila de encabezado
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);
                 if (row == null) continue;
                 User user = new User();

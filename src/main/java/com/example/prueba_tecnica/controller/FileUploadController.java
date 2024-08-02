@@ -1,5 +1,6 @@
 package com.example.prueba_tecnica.controller;
 
+import com.example.prueba_tecnica.constants.Constants;
 import com.example.prueba_tecnica.model.Document;
 import com.example.prueba_tecnica.service.DocumentService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,12 @@ public class FileUploadController {
     @Autowired
     private DocumentService documentService;
 
+    /**
+     * Method to send and save Excel documents
+     *
+     * @param file the MultipartFile of documents
+     * @return a message states or the document data
+     */
     @PostMapping("/excel")
     public ResponseEntity<?> uploadExcel(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
@@ -28,7 +35,8 @@ public class FileUploadController {
         }
         try {
             documentService.processExcelFile(file);
-            Document savedDocument = documentService.saveDocument(file.getOriginalFilename(), "xlsx", file.getSize());
+            Document savedDocument = documentService.saveDocument(file.getOriginalFilename(),
+                    Constants.EXCEL_DOCUMENT_EXTENSION, file.getSize());
             log.warn("Save file excel: " + savedDocument);
             return ResponseEntity.ok(savedDocument);
         } catch (IOException e) {
@@ -36,12 +44,19 @@ public class FileUploadController {
         }
     }
 
+    /**
+     * Method to send and save PDF documents
+     *
+     * @param file the MultipartFile of documents
+     * @return a message states or the document data
+     */
     @PostMapping("/pdf")
     public ResponseEntity<?> uploadPdf(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("Please upload a valid PDF file.");
         }
-        Document savedDocument = documentService.saveDocument(file.getOriginalFilename(), "pdf", file.getSize());
+        Document savedDocument = documentService.saveDocument(file.getOriginalFilename(),
+                Constants.PDF_DOCUMENT_EXTENSION, file.getSize());
         log.warn("Save file pdf: " + savedDocument);
         return ResponseEntity.ok(savedDocument);
     }

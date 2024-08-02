@@ -19,6 +19,11 @@ public class DocumentController {
     @Autowired
     private DocumentService documentService;
 
+    /**
+     * Controller method to get the list of documents.
+     *
+     * @return documents the list of documents.
+     */
     @GetMapping
     public ResponseEntity<List<Document>> getDocuments() {
         List<Document> documents = documentService.getAllDocuments();
